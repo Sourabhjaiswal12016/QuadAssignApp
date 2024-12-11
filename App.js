@@ -1,20 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import SplashScreen from "./components/SplashScreen";
+import Home from "./components/Home";
+import DetailsScreen from "./components/DetailsScreen";
+import SearchScreen from "./components/SearchScreen ";
+import { ShowProvider } from "./context/ShowContext";
 
-export default function App() {
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <ShowProvider>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Splash"
+            component={SplashScreen}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{ title: "Home" }}
+          />
+          <Tab.Screen
+            name="Search"
+            component={SearchScreen}
+            options={{ title: "Search" }}
+          />
+          <Tab.Screen
+            name="Details"
+            component={DetailsScreen}
+            options={{ title: "Details" }}
+          />
+        </Tab.Navigator>
+      </ShowProvider>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
